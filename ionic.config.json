@@ -1,0 +1,7 @@
+{
+  "name": "Hibridas",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
