@@ -11,6 +11,10 @@
     <ion-item *ngFor="let producto of productosEnCarrito">
       <ion-label>{{ producto.nombre }}</ion-label>
       <ion-label>{{ producto.precio }}</ion-label>
+      <ion-button (click)="modificarCantidad(producto, -1)">-</ion-button>
+      <ion-label>{{ producto.cantidad }}</ion-label>
+      <ion-button (click)="modificarCantidad(producto, 1)">+</ion-button>
+      <ion-button (click)="eliminarProducto(producto)">Eliminar</ion-button>
     </ion-item>
   </ion-list>
 

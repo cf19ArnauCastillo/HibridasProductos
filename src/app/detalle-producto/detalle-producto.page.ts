@@ -23,7 +23,7 @@ export class DetalleProductoPage implements OnInit {
     if (productId !== null) {
       this.getProductDetails(productId);
     } else {
-      console.log('No  ID de producto');
+      console.log('No ID de producto');
     }
   }
 
@@ -42,16 +42,31 @@ export class DetalleProductoPage implements OnInit {
   addToCart() {
     this.storage.get('carrito').then((productosEnCarrito: any[]) => {
       if (productosEnCarrito) {
-        productosEnCarrito.push(this.producto); // Agregar el producto actual al carrito
+        // Verificar si el producto ya existe en el carrito
+        const index = productosEnCarrito.findIndex((p) => p.nombre === this.producto.nombre);
+  
+        if (index !== -1) {
+          // Si el producto ya existe, aumentar su cantidad
+          productosEnCarrito[index].cantidad += 1;
+        } else {
+          // Si el producto no existe, agregarlo al carrito
+          this.producto.cantidad = 1;
+          productosEnCarrito.push(this.producto);
+        }
+  
+        // Actualizar el carrito en el almacenamiento
         this.storage.set('carrito', productosEnCarrito).then(() => {
           console.log('Producto añadido al carrito');
           this.router.navigate(['/checkout']); // Redireccionar a la página de checkout
         });
       } else {
-        const nuevoCarrito = [this.producto]; // Crear un nuevo carrito con el producto actual
+        // Si no hay carrito existente, crear uno nuevo con el producto actual
+        this.producto.cantidad = 1;
+        const nuevoCarrito = [this.producto];
+  
+        // Guardar el carrito en el almacenamiento
         this.storage.set('carrito', nuevoCarrito).then(() => {
           console.log('Producto añadido al carrito');
-          window.location.reload(); // Recargar la página de Checkout una vez
           this.router.navigate(['/checkout']); // Redireccionar a la página de checkout
         });
       }

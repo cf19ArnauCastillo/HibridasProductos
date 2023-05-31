@@ -13,11 +13,10 @@ export class CheckoutPage implements OnInit {
     this.initStorage();
   }
 
-  
   ngOnInit() {
     this.storage.get('carrito').then((productos) => {
       if (productos) {
-        this.productosEnCarrito = productos; // Asignar la lista de productos en el carrito
+        this.productosEnCarrito = productos;
       }
     }).catch((error) => {
       console.error('Error al obtener los productos del carrito', error);
@@ -27,11 +26,42 @@ export class CheckoutPage implements OnInit {
   async initStorage() {
     await this.storage.create();
   }
+
   ionViewDidEnter() {
     this.storage.get('carrito').then((productos) => {
       if (productos) {
-        this.productosEnCarrito = productos; // Actualizar la variable productosEnCarrito
+        this.productosEnCarrito = productos;
       }
     });
+  }
+
+  modificarCantidad(producto: any, cantidad: number) {
+    // Verificar si el producto está en el carrito
+    const index = this.productosEnCarrito.findIndex((p) => p.nombre === producto.nombre);
+  
+    if (index !== -1) {
+      // Modificar la cantidad del producto
+      this.productosEnCarrito[index].cantidad += cantidad;
+  
+      // Verificar si la cantidad es menor o igual a 0 para eliminar el producto
+      if (this.productosEnCarrito[index].cantidad <= 0) {
+        this.productosEnCarrito.splice(index, 1); // Eliminar el producto del carrito
+      }
+    }
+  
+    // Guardar los cambios en el almacenamiento
+    this.storage.set('carrito', this.productosEnCarrito);
+  }
+  
+  eliminarProducto(producto: any) {
+    // Verificar si el producto está en el carrito
+    const index = this.productosEnCarrito.findIndex((p) => p.nombre === producto.nombre);
+  
+    if (index !== -1) {
+      this.productosEnCarrito.splice(index, 1); // Eliminar el producto del carrito
+    }
+  
+    // Guardar los cambios en el almacenamiento
+    this.storage.set('carrito', this.productosEnCarrito);
   }
 }
