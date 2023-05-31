@@ -24,7 +24,11 @@ const routes: Routes = [
     loadChildren: () => import('./checkout/checkout.module').then(m => m.CheckoutPageModule)
   },
   {
-    path: '**', // redirige a home
+    path: 'perfil',
+    loadChildren: () => import('./perfil/perfil.module').then(m => m.PerfilPageModule)
+  },
+  {
+    path: '**',
     redirectTo: 'home'
   }
 ];
