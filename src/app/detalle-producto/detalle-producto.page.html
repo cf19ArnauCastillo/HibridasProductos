@@ -15,6 +15,7 @@
       <p>{{ producto.descripcion }}</p>
       <p>PRECIO:{{ producto.precio }}</p>
       <ion-img style='height: 200px' src={{producto.imagen}}></ion-img>
+      <ion-button expand="full" (click)="addToCart()">Añadir al carrito</ion-button>
     </ion-card-content>
   </ion-card>
 </ion-content>
