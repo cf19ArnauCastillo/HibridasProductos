@@ -46,10 +46,10 @@ export class DetalleProductoPage implements OnInit {
         const index = productosEnCarrito.findIndex((p) => p.nombre === this.producto.nombre);
   
         if (index !== -1) {
-          // Si el producto ya existe, aumentar su cantidad
+          // Si ya existe, aumentar su cantidad
           productosEnCarrito[index].cantidad += 1;
         } else {
-          // Si el producto no existe, agregarlo al carrito
+          // Si no existe, agregarlo al carrito
           this.producto.cantidad = 1;
           productosEnCarrito.push(this.producto);
         }
@@ -57,7 +57,7 @@ export class DetalleProductoPage implements OnInit {
         // Actualizar el carrito en el almacenamiento
         this.storage.set('carrito', productosEnCarrito).then(() => {
           console.log('Producto añadido al carrito');
-          this.router.navigate(['/checkout']); // Redireccionar a la página de checkout
+          this.router.navigate(['/checkout']);
         });
       } else {
         // Si no hay carrito existente, crear uno nuevo con el producto actual
@@ -67,7 +67,7 @@ export class DetalleProductoPage implements OnInit {
         // Guardar el carrito en el almacenamiento
         this.storage.set('carrito', nuevoCarrito).then(() => {
           console.log('Producto añadido al carrito');
-          this.router.navigate(['/checkout']); // Redireccionar a la página de checkout
+          this.router.navigate(['/checkout']);
         });
       }
     });

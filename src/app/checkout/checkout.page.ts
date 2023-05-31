@@ -45,20 +45,20 @@ export class CheckoutPage implements OnInit {
   
       // Verificar si la cantidad es menor o igual a 0 para eliminar el producto
       if (this.productosEnCarrito[index].cantidad <= 0) {
-        this.productosEnCarrito.splice(index, 1); // Eliminar el producto del carrito
+        this.productosEnCarrito.splice(index, 1); // Me lo cargo
       }
     }
   
-    // Guardar los cambios en el almacenamiento
+    // Guardar los cambios en el storage
     this.storage.set('carrito', this.productosEnCarrito);
   }
   
   eliminarProducto(producto: any) {
-    // Verificar si el producto está en el carrito
+    // Verificar si esta el producto
     const index = this.productosEnCarrito.findIndex((p) => p.nombre === producto.nombre);
   
     if (index !== -1) {
-      this.productosEnCarrito.splice(index, 1); // Eliminar el producto del carrito
+      this.productosEnCarrito.splice(index, 1); // Me lo vuelvo a cargar
     }
   
     // Guardar los cambios en el almacenamiento
